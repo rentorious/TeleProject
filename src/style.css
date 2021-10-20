@@ -1,0 +1,12 @@
+.fadeInColor {
+  animation: colorfade 0.5s ease-in;
+}
+
+@keyframes colorfade {
+  from {
+    background-color: lightgray;
+  }
+  to {
+    background-color: white;
+  }
+}
