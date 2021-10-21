@@ -6,42 +6,29 @@ import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const [symbols, setSymbols] = useState([]);
-  const { ws, idData, symToId, isLoading, setIsLoading } = useLive(
-    symbols,
-    props.option
-  );
+  const { idData, idToSym, data } = useLive(symbols, props.option);
   const { favorites } = useContext(Context);
 
   const { option } = props;
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
-
   // Initial setup
   useEffect(() => {
-    setIsLoading(true);
     if (option === "top5") {
       // Fetch top 5 SYMBOLS
       // TODO: Error component
       axios
         .get("/v1/symbols")
         .then((res) =>
-          setSymbols(res.data.slice(0, 5).map((x) => x.toUpperCase()))
+          setSymbols(() => res.data.slice(0, 5).map((x) => x.toUpperCase()))
         )
         .catch((err) => console.log(err));
     } else if (option === "favorites") {
       //  set symbols to those from context
-      setSymbols([...favorites]);
+      setSymbols(() => [...favorites]);
     } else {
       throw new Error("Invalid table prop: option");
     }
-
-    // On cleanup close WebSocket connection
-    return () => {
-      ws.close();
-    };
-  }, [ws, favorites, option, setIsLoading]);
+  }, [favorites, option]);
 
   return (
     <>
@@ -56,35 +43,27 @@ const Table = (props) => {
             <td>Low</td>
           </tr>
         </thead>
-        {!isLoading && (
-          <tbody>
-            {symbols
-              .filter(
-                (symbol) => symbol in symToId && symToId[symbol] in idData
-              )
-              .map((symbol) => {
-                const {
-                  high,
-                  low,
-                  daily_change,
-                  daily_change_rel,
-                  last_price,
-                } = idData[symToId[symbol]];
-                return (
-                  <tr key={symToId[symbol]} className="fadeInColor">
-                    <th>
-                      <Link to={`/details/${symbol}`}>{symbol}</Link>
-                    </th>
-                    <td>{formatNumber(last_price)}</td>
-                    <td>{formatNumber(daily_change)}</td>
-                    <td>{formatNumber(daily_change_rel)}%</td>
-                    <td>{formatNumber(high)}</td>
-                    <td>{formatNumber(low)}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        )}
+        <tbody>
+          // TODO: sort by order from axios request
+          {Object.keys(idData)
+            .filter((key) => symbols.includes(idToSym[key]))
+            .map((key) => {
+              const { high, low, daily_change, daily_change_rel, last_price } =
+                idData[key];
+              return (
+                <tr key={idToSym[key]} className="fadeInColor">
+                  <th>
+                    <Link to={`/details/${idToSym[key]}`}>{idToSym[key]}</Link>
+                  </th>
+                  <td>{formatNumber(last_price)}</td>
+                  <td>{formatNumber(daily_change)}</td>
+                  <td>{formatNumber(daily_change_rel)}%</td>
+                  <td>{formatNumber(high)}</td>
+                  <td>{formatNumber(low)}</td>
+                </tr>
+              );
+            })}
+        </tbody>
       </table>
     </>
   );
