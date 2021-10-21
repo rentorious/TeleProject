@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import Details from "./Details";
 import { Context } from "../Context";
+import Footer from "./Footer";
 
 const Container = () => {
   const { isDark } = useContext(Context);
@@ -24,6 +25,7 @@ const Container = () => {
           />
         </Switch>
       </div>
+      <Footer />
     </div>
   );
 };

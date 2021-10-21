@@ -14,7 +14,7 @@ const Header = () => {
     >
       <div className="navbar-brand level-left">
         <Link to="/" className="navbar-item level-tiem">
-          Home
+          <strong>Home</strong>
         </Link>
         {isLoggedIn && (
           <Link

@@ -10,7 +10,7 @@ table.isDark tr:nth-child(even) {
 table.isDark td {
   color: hsl(0, 0%, 96%);
 }
-
+.footerDark a:hover,
 table a:hover {
   color: hsl(217, 71%, 74%);
 }
@@ -29,4 +29,24 @@ table a:hover {
 .appBodyDark {
   height: 100vh;
   background-color: hsl(0, 0%, 21%);
+}
+
+.footerDark {
+  background-color: hsl(0, 0%, 21%);
+}
+.footerDark strong,
+.footerDark p {
+  color: hsl(0, 0%, 96%);
+}
+
+footer {
+  position: absolute;
+  bottom: 0; /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+
+  transform: translate(
+    -50%,
+    -50%
+  ); /* This is a shorthand of
+                                       translateX(-50%) and translateY(-50%) */
 }
