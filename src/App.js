@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "./components/Table";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import { Provider } from "./Context";
-
-const Context = React.createContext();
 
 const App = () => {
   return (

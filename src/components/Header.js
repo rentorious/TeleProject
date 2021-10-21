@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Context";
 
@@ -30,6 +30,17 @@ const Header = () => {
               onClick={() => setIsLoggedIn(true)}
             >
               Log In
+            </button>
+          </div>
+        )}
+        {isLoggedIn && (
+          <div className="navbar-item">
+            <button
+              type="button"
+              className="button is-danger"
+              onClick={() => setIsLoggedIn(false)}
+            >
+              Log Out
             </button>
           </div>
         )}
