@@ -25,7 +25,6 @@ const Table = (props) => {
         .catch((err) => console.log(err));
     } else if (option === "favorites") {
       //  set symbols to those from context
-      console.log("FAVORITES");
       setSymbols([...favorites]);
     } else {
       throw new Error("Invalid table prop: option");
