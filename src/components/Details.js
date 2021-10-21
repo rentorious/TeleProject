@@ -76,7 +76,7 @@ const Details = (props) => {
         )}
       </table>
       {isLoggedIn && (
-        <div className="detailOptions">
+        <div className="detailOptions mx-3 my-1">
           {isFavorite ? (
             <button className="button is-danger" onClick={removeFromFavorites}>
               Remove From Favorites
