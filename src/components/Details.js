@@ -6,13 +6,19 @@ const Details = (props) => {
   const [high, setHigh] = useState(0);
   const [low, setLow] = useState(0);
   const [last, setLast] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setisLoading] = useState(true);
 
-  const { favorites, setFavorites } = useContext(Context);
+  const { favorites, setFavorites, isLoggedIn } = useContext(Context);
 
   const symbol = props.match.params.symbol;
 
   useEffect(() => {
+    if (favorites && favorites.includes(symbol)) setIsFavorite(true);
+  }, [favorites, setIsFavorite, symbol]);
+
+  useEffect(() => {
+    console.log(isLoggedIn);
     axios
       .get(`/v1/pubticker/${symbol}`)
       .then((res) => {
@@ -34,6 +40,13 @@ const Details = (props) => {
 
   const addToFavorites = () => {
     if (!favorites.includes(symbol)) setFavorites([...favorites, symbol]);
+    setIsFavorite(true);
+  };
+
+  const removeFromFavorites = () => {
+    const newFavs = favorites.filter((fav) => fav !== symbol);
+    setFavorites([...newFavs]);
+    setIsFavorite(false);
   };
 
   return (
@@ -54,16 +67,23 @@ const Details = (props) => {
               <td>{formatNumber(last)}</td>
               <td>{formatNumber(high)}</td>
               <td>{formatNumber(low)}</td>
-              {/* <td>{last}</td>
-            <td>{high}</td>
-            <td>{low}</td> */}
             </tr>
           </tbody>
         )}
       </table>
-      <button className="button is-primary" onClick={addToFavorites}>
-        Add To Favorites
-      </button>
+      {isLoggedIn && (
+        <div className="detailOptions">
+          {isFavorite ? (
+            <button className="button is-danger" onClick={removeFromFavorites}>
+              Remove From Favorites
+            </button>
+          ) : (
+            <button className="button is-primary" onClick={addToFavorites}>
+              Add To Favorites
+            </button>
+          )}
+        </div>
+      )}
     </>
   );
 };
