@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 export function useLive(symbols, option) {
   const [idData, setIdData] = useState({});
   const [idToSym, setIdToSym] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +25,7 @@ export function useLive(symbols, option) {
 
   // Unsubsribe/Subsribe to channels
   useEffect(() => {
-    if (!ws.current || !isOpen || ws.current.readyState != 1) return;
+    if (!ws.current || !isOpen || ws.current.readyState !== 1) return;
 
     for (const symbol of symbols) {
       console.log(`SUBSRIBING TO ${symbol}`);

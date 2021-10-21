@@ -36,7 +36,7 @@ const Details = (props) => {
         setisLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [symbol]);
+  }, [symbol, isLoggedIn]);
 
   const addToFavorites = () => {
     if (!favorites.includes(symbol)) setFavorites([...favorites, symbol]);
