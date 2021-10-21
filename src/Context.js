@@ -5,12 +5,17 @@ export const Context = createContext({});
 export const Provider = (props) => {
   const { children } = props;
 
-  const [isLoggedIn, setIsLoggedIn] = JSON.parse(
-    localStorage.getItem("isLoggedIn") || "false"
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn")
+      ? JSON.parse(localStorage.getItem("isLoggedIn"))
+      : false
   );
-  const [favorites, setFavorites] = JSON.parse(
-    localStorage.getItem("favorites") || "[]"
+  const [favorites, setFavorites] = useState(
+    localStorage.getItem("favorites")
+      ? JSON.parse(localStorage.getItem("favorites"))
+      : []
   );
+
   const [darkTheme, setDarkTheme] = useState(false);
 
   const context = {
