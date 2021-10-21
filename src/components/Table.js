@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const [symbols, setSymbols] = useState([]);
-  const { idData, idToSym, data } = useLive(symbols, props.option);
+  const { idData, idToSym } = useLive(symbols, props.option);
   const { favorites } = useContext(Context);
 
   const { option } = props;
@@ -44,7 +44,7 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          // TODO: sort by order from axios request
+          {/* // TODO: sort by order from axios request */}
           {Object.keys(idData)
             .filter((key) => symbols.includes(idToSym[key]))
             .map((key) => {

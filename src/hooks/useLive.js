@@ -25,18 +25,15 @@ export function useLive(symbols, option) {
 
   // Unsubsribe/Subsribe to channels
   useEffect(() => {
-    if (!ws.current || !isOpen) return;
-
-    console.log(ws.current);
+    if (!ws.current || !isOpen || ws.current.readyState != 1) return;
 
     for (const symbol of symbols) {
-      console.log("SUBSRIBING TO");
+      console.log(`SUBSRIBING TO ${symbol}`);
       let wsConfig = JSON.stringify({
         event: "subscribe",
         channel: "ticker",
         symbol: `t${symbol.toUpperCase()}`,
       });
-
       ws.current.send(wsConfig);
     }
   }, [symbols, isOpen]);
