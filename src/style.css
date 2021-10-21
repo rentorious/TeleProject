@@ -1,12 +1,31 @@
-.fadeInColor {
-  animation: colorfade 0.5s ease-in;
+table.isDark tr:nth-child(odd) {
+  background-color: hsl(0, 0%, 21%) !important;
 }
 
-@keyframes colorfade {
-  from {
-    background-color: lightgray;
-  }
-  to {
-    background-color: white;
-  }
+table.isDark tr:nth-child(even) {
+  background-color: hsl(0, 0%, 30%) !important;
+}
+
+table.isDark td {
+  color: hsl(0, 0%, 96%);
+}
+
+table a:hover {
+  color: hsl(217, 71%, 74%);
+}
+.textGain {
+  color: green !important;
+}
+
+.textLoss {
+  color: red !important;
+}
+
+.appBody {
+  height: 100vh;
+  background-color: hsl(0, 0%, 96%);
+}
+.darkBodyDark {
+  height: 100vh;
+  background-color: hsl(0, 0%, 21%);
 }

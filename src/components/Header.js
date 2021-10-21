@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react/cjs/react.development";
 import { Context } from "../Context";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, isDark } = useContext(Context);
 
   return (
     <nav
-      className="navbar is-light"
+      className={`navbar ${isDark ? "is-dark" : "is-light"}`}
       role="navigation"
       aria-label="main navigation"
     >
@@ -16,12 +17,12 @@ const Header = () => {
           Home
         </Link>
         {isLoggedIn && (
-          <Link className="navbar-item" to="/favorites">
+          <Link to="/favorites" className="navbar-item">
             Favorites
           </Link>
         )}
       </div>
-      <div className="navbar-menu   navbar-end is-active">
+      <div className="navbar-menu navbar-end is-active">
         {!isLoggedIn && (
           <div className="navbar-item">
             <button

@@ -16,16 +16,24 @@ export const Provider = (props) => {
       : []
   );
 
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem("isDark")
+      ? JSON.parse(localStorage.getItem("isDark"))
+      : false
+  );
 
   const context = {
     isLoggedIn,
     setIsLoggedIn,
-    darkTheme,
-    setDarkTheme,
     favorites,
     setFavorites,
+    isDark,
+    setIsDark,
   };
+
+  useEffect(() => {
+    localStorage.setItem("isDark", JSON.stringify(!isDark));
+  }, [isDark]);
 
   useEffect(() => {
     if (isLoggedIn) localStorage.setItem("isLoggedIn", JSON.stringify(true));

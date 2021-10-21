@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 const Table = (props) => {
   const [symbols, setSymbols] = useState([]);
   const { idData, idToSym } = useLive(symbols, props.option);
-  const { favorites } = useContext(Context);
+  const { favorites, isDark } = useContext(Context);
 
   const { option } = props;
+
+  console.log("dark", isDark);
 
   // Initial setup
   useEffect(() => {
@@ -32,7 +34,11 @@ const Table = (props) => {
 
   return (
     <>
-      <table className="table is-striped is-narrow is-fullwidth">
+      <table
+        className={`table is-striped is-narrow is-fullwidth ${
+          isDark && "isDark"
+        }`}
+      >
         <thead>
           <tr>
             <td>Name</td>
@@ -46,6 +52,11 @@ const Table = (props) => {
         <tbody>
           {/* // TODO: sort by order from axios request */}
           {Object.keys(idData)
+            .sort((a, b) => {
+              const diff =
+                symbols.indexOf(idToSym[a]) - symbols.indexOf(idToSym[b]);
+              return diff;
+            })
             .filter((key) => symbols.includes(idToSym[key]))
             .map((key) => {
               const { high, low, daily_change, daily_change_rel, last_price } =
@@ -56,8 +67,20 @@ const Table = (props) => {
                     <Link to={`/details/${idToSym[key]}`}>{idToSym[key]}</Link>
                   </th>
                   <td>{formatNumber(last_price)}</td>
-                  <td>{formatNumber(daily_change)}</td>
-                  <td>{formatNumber(daily_change_rel)}%</td>
+                  <td
+                    className={`${
+                      daily_change > 0.0 ? "textGain" : "textLoss"
+                    }`}
+                  >
+                    {formatNumber(daily_change)}
+                  </td>
+                  <td
+                    className={`${
+                      daily_change > 0.0 ? "textGain" : "textLoss"
+                    }`}
+                  >
+                    {formatNumber(daily_change_rel)}%
+                  </td>
                   <td>{formatNumber(high)}</td>
                   <td>{formatNumber(low)}</td>
                 </tr>
