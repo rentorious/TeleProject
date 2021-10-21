@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 
 const ws = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
 
-export function useLive(symbols) {
+export function useLive(symbols, option) {
   const [idData, setIdData] = useState({});
   const [symToId, setSymToId] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   // Websocket events
   ws.onmessage = (msg) => {
     const msgData = JSON.parse(msg.data);
 
     if (msgData?.event === "subscribed") {
+      console.log("SUBSRIBED");
       const { pair: sym, chanId: id } = msgData;
 
       const newCrypto = {
@@ -22,7 +24,6 @@ export function useLive(symbols) {
       };
 
       setSymToId({ ...symToId, [sym]: id });
-
       setIdData({ ...idData, [id]: newCrypto });
     } else if (msgData instanceof Array && msgData[1].length === 10) {
       const id = msgData[0];
@@ -42,9 +43,11 @@ export function useLive(symbols) {
 
   // Subscribe to selected symbols
   useEffect(() => {
-    if (symbols.length === 5) {
+    if (symbols.length > 0) {
       ws.onopen = () => {
         for (const symbol of symbols) {
+          console.log(`SUBSCRIBING to ${symbol}`);
+
           let wsConfig = JSON.stringify({
             event: "subscribe",
             channel: "ticker",
@@ -55,7 +58,19 @@ export function useLive(symbols) {
         }
       };
     }
-  }, [symbols]);
 
-  return { ws, idData, symToId };
+    return () => {
+      console.log("BRIIIIIIIIIIIIIii");
+      setIdData({});
+    };
+  }, [symbols, setIdData, setSymToId]);
+
+  useEffect(() => {
+    console.log(Object.keys(idData).length, symbols.length);
+    if (Object.keys(idData).length === symbols.length && isLoading) {
+      setIsLoading(false);
+    }
+  }, [symbols.length, idData, isLoading]);
+
+  return { ws, idData, symToId, isLoading, setIsLoading };
 }

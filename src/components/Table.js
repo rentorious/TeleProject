@@ -6,14 +6,21 @@ import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const [symbols, setSymbols] = useState([]);
-  const { ws, idData, symToId, count } = useLive(symbols);
+  const { ws, idData, symToId, isLoading, setIsLoading } = useLive(
+    symbols,
+    props.option
+  );
   const { favorites } = useContext(Context);
-  const [isLoading, setIsLoading] = useState(true);
 
   const { option } = props;
 
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
+
   // Initial setup
   useEffect(() => {
+    setIsLoading(true);
     if (option === "top5") {
       // Fetch top 5 SYMBOLS
       // TODO: Error component
@@ -34,7 +41,7 @@ const Table = (props) => {
     return () => {
       ws.close();
     };
-  }, [ws, favorites, option]);
+  }, [ws, favorites, option, setIsLoading]);
 
   return (
     <>
@@ -49,26 +56,35 @@ const Table = (props) => {
             <td>Low</td>
           </tr>
         </thead>
-        <tbody>
-          {symbols
-            .filter((symbol) => symbol in symToId && symToId[symbol] in idData)
-            .map((symbol) => {
-              const { high, low, daily_change, daily_change_rel, last_price } =
-                idData[symToId[symbol]];
-              return (
-                <tr key={symToId[symbol]} className="fadeInColor">
-                  <th>
-                    <Link to={`/details/${symbol}`}>{symbol}</Link>
-                  </th>
-                  <td>{formatNumber(last_price)}</td>
-                  <td>{formatNumber(daily_change)}</td>
-                  <td>{formatNumber(daily_change_rel)}%</td>
-                  <td>{formatNumber(high)}</td>
-                  <td>{formatNumber(low)}</td>
-                </tr>
-              );
-            })}
-        </tbody>
+        {!isLoading && (
+          <tbody>
+            {symbols
+              .filter(
+                (symbol) => symbol in symToId && symToId[symbol] in idData
+              )
+              .map((symbol) => {
+                const {
+                  high,
+                  low,
+                  daily_change,
+                  daily_change_rel,
+                  last_price,
+                } = idData[symToId[symbol]];
+                return (
+                  <tr key={symToId[symbol]} className="fadeInColor">
+                    <th>
+                      <Link to={`/details/${symbol}`}>{symbol}</Link>
+                    </th>
+                    <td>{formatNumber(last_price)}</td>
+                    <td>{formatNumber(daily_change)}</td>
+                    <td>{formatNumber(daily_change_rel)}%</td>
+                    <td>{formatNumber(high)}</td>
+                    <td>{formatNumber(low)}</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        )}
       </table>
     </>
   );
