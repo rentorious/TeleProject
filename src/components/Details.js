@@ -19,7 +19,6 @@ const Details = (props) => {
   }, [favorites, setIsFavorite, symbol]);
 
   useEffect(() => {
-    console.log(isLoggedIn);
     axios
       .get(`/v1/pubticker/${symbol}`)
       .then((res) => {
