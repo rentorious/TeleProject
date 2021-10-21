@@ -33,7 +33,8 @@ const Header = () => {
             </button>
           </div>
         )}
-        {isLoggedIn && (
+        {/* // * Only used for testing */}
+        {/* {isLoggedIn && (
           <div className="navbar-item">
             <button
               type="button"
@@ -43,7 +44,7 @@ const Header = () => {
               Log Out
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </nav>
   );
