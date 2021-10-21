@@ -27,7 +27,7 @@ export const Provider = (props) => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    localStorage.setItem("favorites", favorites);
+    localStorage.setItem("favorites", [...favorites]);
   }, [favorites]);
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
