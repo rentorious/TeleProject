@@ -42,11 +42,9 @@ export function useLive(symbols) {
 
   // Subscribe to selected symbols
   useEffect(() => {
-    console.log("symbols changed");
     if (symbols.length === 5) {
       ws.onopen = () => {
         for (const symbol of symbols) {
-          console.log(symbol);
           let wsConfig = JSON.stringify({
             event: "subscribe",
             channel: "ticker",

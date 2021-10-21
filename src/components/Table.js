@@ -25,6 +25,7 @@ const Table = (props) => {
         .catch((err) => console.log(err));
     } else if (option === "favorites") {
       //  set symbols to those from context
+      console.log("FAVORITES");
       setSymbols([...favorites]);
     } else {
       throw new Error("Invalid table prop: option");
@@ -49,36 +50,26 @@ const Table = (props) => {
             <td>Low</td>
           </tr>
         </thead>
-        {console.log(isLoading)}
-        {!isLoading && (
-          <tbody>
-            {symbols
-              .filter(
-                (symbol) => symbol in symToId && symToId[symbol] in idData
-              )
-              .map((symbol) => {
-                const {
-                  high,
-                  low,
-                  daily_change,
-                  daily_change_rel,
-                  last_price,
-                } = idData[symToId[symbol]];
-                return (
-                  <tr key={symToId[symbol]} className="fadeInColor">
-                    <th>
-                      <Link to={`/details/${symbol}`}>{symbol}</Link>
-                    </th>
-                    <td>{formatNumber(last_price)}</td>
-                    <td>{formatNumber(daily_change)}</td>
-                    <td>{formatNumber(daily_change_rel)}%</td>
-                    <td>{formatNumber(high)}</td>
-                    <td>{formatNumber(low)}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        )}
+        <tbody>
+          {symbols
+            .filter((symbol) => symbol in symToId && symToId[symbol] in idData)
+            .map((symbol) => {
+              const { high, low, daily_change, daily_change_rel, last_price } =
+                idData[symToId[symbol]];
+              return (
+                <tr key={symToId[symbol]} className="fadeInColor">
+                  <th>
+                    <Link to={`/details/${symbol}`}>{symbol}</Link>
+                  </th>
+                  <td>{formatNumber(last_price)}</td>
+                  <td>{formatNumber(daily_change)}</td>
+                  <td>{formatNumber(daily_change_rel)}%</td>
+                  <td>{formatNumber(high)}</td>
+                  <td>{formatNumber(low)}</td>
+                </tr>
+              );
+            })}
+        </tbody>
       </table>
     </>
   );

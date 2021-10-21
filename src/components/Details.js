@@ -33,6 +33,7 @@ const Details = (props) => {
   }, [symbol]);
 
   const addToFavorites = () => {
+    console.log(symbol);
     if (!favorites.includes(symbol)) setFavorites([...favorites, symbol]);
   };
 
