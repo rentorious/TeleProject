@@ -35,13 +35,13 @@ const Table = (props) => {
   return (
     <>
       <table
-        className={`table is-striped is-narrow is-fullwidth ${
+        className={`table is-striped is-narrow is-fullwidth p-4 has-text-right is-size-7-mobile ${
           isDark && "isDark"
         }`}
       >
         <thead>
           <tr>
-            <td>Name</td>
+            <td className="has-text-left">Name</td>
             <td>Last</td>
             <td>Change</td>
             <td>Change Percent</td>
@@ -63,7 +63,7 @@ const Table = (props) => {
                 idData[key];
               return (
                 <tr key={idToSym[key]} className="fadeInColor">
-                  <th>
+                  <th className="has-text-left">
                     <Link to={`/details/${idToSym[key]}`}>{idToSym[key]}</Link>
                   </th>
                   <td>{formatNumber(last_price)}</td>
