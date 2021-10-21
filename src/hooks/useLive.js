@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export function useLive(symbols, option) {
+export function useLive(symbols) {
   const [idData, setIdData] = useState({});
   const [idToSym, setIdToSym] = useState({});
   // const [isLoading, setIsLoading] = useState(true);

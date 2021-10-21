@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Context } from "../Context";
+import { FaSpinner } from "react-icons/fa";
 
 const Details = (props) => {
   const [high, setHigh] = useState(0);
@@ -64,7 +65,9 @@ const Details = (props) => {
             <td>Low</td>
           </tr>
         </thead>
-        {!isLoading && (
+        {isLoading ? (
+          <FaSpinner style={{ fontSize: "2rem", color: "#7FFFD4" }} />
+        ) : (
           <tbody>
             <tr>
               <th className={`${isDark && "is-light"}`}>{symbol}</th>
