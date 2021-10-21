@@ -32,7 +32,8 @@ export const Provider = (props) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("isDark", JSON.stringify(!isDark));
+    if (isDark) localStorage.setItem("isDark", JSON.stringify(true));
+    else localStorage.setItem("isDark", JSON.stringify(false));
   }, [isDark]);
 
   useEffect(() => {

@@ -50,7 +50,6 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {/* // TODO: sort by order from axios request */}
           {Object.keys(idData)
             .sort((a, b) => {
               const diff =
