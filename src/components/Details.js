@@ -9,7 +9,7 @@ const Details = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setisLoading] = useState(true);
 
-  const { favorites, setFavorites, isLoggedIn } = useContext(Context);
+  const { favorites, setFavorites, isLoggedIn, isDark } = useContext(Context);
 
   const symbol = props.match.params.symbol;
 
@@ -51,7 +51,11 @@ const Details = (props) => {
 
   return (
     <>
-      <table className="table is-stripped is-narrow is-fullwidth">
+      <table
+        className={`table is-stripped is-narrow is-fullwidth ${
+          isDark && "isDark"
+        }`}
+      >
         <thead>
           <tr>
             <td>Name</td>
@@ -63,7 +67,7 @@ const Details = (props) => {
         {!isLoading && (
           <tbody>
             <tr>
-              <th>{symbol}</th>
+              <th className={`${isDark && "is-light"}`}>{symbol}</th>
               <td>{formatNumber(last)}</td>
               <td>{formatNumber(high)}</td>
               <td>{formatNumber(low)}</td>

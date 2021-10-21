@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
 import { Context } from "../Context";
 
 const Header = () => {
@@ -8,44 +7,36 @@ const Header = () => {
 
   return (
     <nav
-      className={`navbar ${isDark ? "is-dark" : "is-light"}`}
+      className={`navbar level is-mobile ${isDark ? "is-dark" : "is-light"}`}
       role="navigation"
       aria-label="main navigation"
     >
-      <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
+      <div className="navbar-brand level-left">
+        <Link to="/" className="navbar-item level-tiem">
           Home
         </Link>
         {isLoggedIn && (
-          <Link to="/favorites" className="navbar-item">
+          <Link
+            to="/favorites"
+            className="navbar-item level-item
+          "
+          >
             Favorites
           </Link>
         )}
       </div>
-      <div className="navbar-menu navbar-end is-active">
+      <div className="level-right">
         {!isLoggedIn && (
-          <div className="navbar-item">
+          <div className="navbar-item level-item ">
             <button
               type="button"
-              className="button is-primary"
+              className="button is-primary  is-normal"
               onClick={() => setIsLoggedIn(true)}
             >
               Log In
             </button>
           </div>
         )}
-        {/* // * Only used for testing */}
-        {/* {isLoggedIn && (
-          <div className="navbar-item">
-            <button
-              type="button"
-              className="button is-danger"
-              onClick={() => setIsLoggedIn(false)}
-            >
-              Log Out
-            </button>
-          </div>
-        )} */}
       </div>
     </nav>
   );

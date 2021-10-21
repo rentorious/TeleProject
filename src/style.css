@@ -1,4 +1,5 @@
-table.isDark tr:nth-child(odd) {
+table.isDark tr:nth-child(odd),
+.darkMenu {
   background-color: hsl(0, 0%, 21%) !important;
 }
 
@@ -25,7 +26,7 @@ table a:hover {
   height: 100vh;
   background-color: hsl(0, 0%, 96%);
 }
-.darkBodyDark {
+.appBodyDark {
   height: 100vh;
   background-color: hsl(0, 0%, 21%);
 }
