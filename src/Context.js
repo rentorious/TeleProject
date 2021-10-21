@@ -4,12 +4,12 @@ export const Context = createContext({});
 
 export const Provider = (props) => {
   const { children } = props;
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [darkTheme, setDarkTheme] = useState(false);
 
   const context = {
     isLoggedIn,
-    setisLoggedIn,
+    setIsLoggedIn,
     darkTheme,
     setDarkTheme,
   };

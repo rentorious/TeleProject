@@ -3,23 +3,14 @@ import { Link } from "react-router-dom";
 import { Context } from "../Context";
 
 const Header = () => {
-  const { isLoggedIn } = useContext(Context);
-  const navMenuRef = useRef(null);
-
-  const handleToggle = (e) => {
-    // Get the target freom the "data-target" attribute
-    const target = e.target;
-
-    console.log(target);
-    navMenuRef.current.classList.toggle("is-active");
-
-    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-    // e.classList.toggle("is-active");
-    target.classList.toggle("is-active");
-  };
+  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar is-light"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
           Home
@@ -29,19 +20,19 @@ const Header = () => {
             Favorites
           </Link>
         )}
-        {/* <a
-          href="javascript:void(0);"
-          role="button"
-          className="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-          onClick={(e) => handleToggle(e)}
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a> */}
+      </div>
+      <div className="navbar-menu   navbar-end is-active">
+        {!isLoggedIn && (
+          <div className="navbar-item">
+            <button
+              type="button"
+              className="button is-primary"
+              onClick={() => setIsLoggedIn(true)}
+            >
+              Log In
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );
