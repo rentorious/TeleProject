@@ -7,7 +7,6 @@ import { Context } from "../Context";
 
 const Container = () => {
   const { isDark } = useContext(Context);
-  console.log("darkie", isDark);
   return (
     <div className={`${isDark ? "appBodyDark" : "appBody"}`}>
       <div className="container">

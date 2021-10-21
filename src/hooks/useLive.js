@@ -28,7 +28,7 @@ export function useLive(symbols) {
     if (!ws.current || !isOpen || ws.current.readyState !== 1) return;
 
     for (const symbol of symbols) {
-      console.log(`SUBSRIBING TO ${symbol}`);
+      // console.log(`SUBSRIBING TO ${symbol}`);
       let wsConfig = JSON.stringify({
         event: "subscribe",
         channel: "ticker",
@@ -40,7 +40,7 @@ export function useLive(symbols) {
 
   useEffect(() => {
     if (data?.event === "subscribed") {
-      console.log("SUBSRIBED");
+      // console.log("SUBSRIBED");
       const { pair: sym, chanId: id } = data;
 
       const newCrypto = {
