@@ -8,8 +8,22 @@ const Footer = () => {
       <div className="content has-text-centered">
         <p>
           <strong>React Test Project</strong> by{" "}
-          <a href="https://github.com/rentorious" target="_blank">
+          <a
+            href="https://github.com/rentorious"
+            target="_blank"
+            rel="noreferrer"
+          >
             Ognjen Popovic
+          </a>
+        </p>
+        <p>
+          <strong>Project Repo</strong>{" "}
+          <a
+            href="https://github.com/rentorious/TeleProject"
+            target="_blank"
+            rel="noreferrer"
+          >
+            here
           </a>
         </p>
       </div>

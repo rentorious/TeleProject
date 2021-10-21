@@ -38,6 +38,12 @@ table a:hover {
 .footerDark p {
   color: hsl(0, 0%, 96%);
 }
+.footerDark a {
+  color: whitesmoke;
+}
+.footerDark a:hover {
+  color: hsl(0, 0%, 88%);
+}
 
 footer {
   position: absolute;
