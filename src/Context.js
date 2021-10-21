@@ -10,6 +10,8 @@ export const Provider = (props) => {
     JSON.parse(localStorage.getItem("favorites"))
   );
 
+  console.log(localStorage);
+
   const [isLoggedIn, setIsLoggedIn] = useState(localIsLoggedIn || false);
   const [favorites, setFavorites] = useState(localFavorites || []);
   const [darkTheme, setDarkTheme] = useState(false);
