@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Context";
+import { FaRegMoon, FaRegSun } from "react-icons/fa";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn, isDark } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, isDark, setIsDark } = useContext(Context);
 
   return (
     <nav
@@ -37,6 +38,17 @@ const Header = () => {
             </button>
           </div>
         )}
+
+        <div
+          className="navbar-item level-item"
+          onClick={() => setIsDark(!isDark)}
+        >
+          {isDark ? (
+            <FaRegSun style={{ color: "darkorange" }} />
+          ) : (
+            <FaRegMoon style={{ color: "midnightblue" }} />
+          )}
+        </div>
       </div>
     </nav>
   );
